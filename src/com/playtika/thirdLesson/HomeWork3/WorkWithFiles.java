@@ -22,7 +22,7 @@ public class WorkWithFiles {
 
         new FileAndTextReader(directory).textReadResultAndFilesData();
 
-        new FilesCopyClass(fileSecond,fileCopySecond).fileCopyFromSourseToDestination();
+        new FilesCopyClass(fileSecond, fileCopySecond).fileCopyFromSourseToDestination();
 
 
 
