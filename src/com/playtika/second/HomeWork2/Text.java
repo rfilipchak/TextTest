@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 
 public class Text {
 
-    private String text;
+    private final String text;
 
 
     public Text(String text) {
@@ -19,26 +19,18 @@ public class Text {
         }
     }
 
-    public List<String> getTopWords(int wordCount) {
-        if (wordCount <= 0) {
+    public List<String> getTopWords(int limit) {
+        if (limit < 0) {
             throw new IllegalArgumentException(" Incorrect word counter <= 0");
         }
-        TreeSet<String> uniqueWords = new TreeSet<String>();
-        for (int i = 0; i < wordsCollection().size(); i++) {
-            uniqueWords.add(wordsCollection().get(i));
+        Set<String> uniqueWords = new TreeSet<String>();
+        uniqueWords.addAll(wordsCollection());
+        if (limit >= wordsCollection().size()) {
+            return new ArrayList<>(uniqueWords).subList(0, uniqueWords.size());
+        } else {
+            return new ArrayList<>(uniqueWords).subList(0, limit);
         }
-        //        wordsCollection().forEach(a->uniqueWords.add(a));
-        int current = 0;
-        List<String> result = new ArrayList<>();
-        for (String word : uniqueWords) {
-            result.add(word);
-            current++;
-            if (current == wordCount) {
-                break;
-            }
-        }
-//        List<String> result = uniqueWords.stream().limit(wordCount).collect(Collectors.toList());
-        return result;
+        //List<String> result = uniqueWords.stream().limit(limit).collect(Collectors.toList());
     }
 
     public Map<String, Integer> getWordsFrequencies() {
@@ -67,17 +59,18 @@ public class Text {
 
     private List<String> wordsCollection() {
         List<String> words = Arrays.asList(text.toLowerCase().trim().split("[^a-zA-Z0-9а-яА-Я]+"));//[\s,.!?\t\n]+
-
         for (String word : words) {
             if (word.equals("")) {
                 throw new IllegalArgumentException(" Text can't be punctuation or symbols");
             }
         }
-        if (words.isEmpty()){
+        if (words.isEmpty()) {
             throw new IllegalArgumentException(" Text can't be punctuation or symbols");
-        }else {
+
+        } else {
             return words;
         }
+
     }
 
 
