@@ -20,8 +20,9 @@ public class WorkWithFiles {
 
 
 
+        new FileAndTextReader(directory).textReadResultAndFilesData();
 
-        new FilesCopyClass(fileFirst,"null").fileCopyFromSourseToDestination();
+        new FilesCopyClass(fileSecond,fileCopySecond).fileCopyFromSourseToDestination();
 
 
 
