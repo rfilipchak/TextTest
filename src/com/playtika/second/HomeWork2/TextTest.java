@@ -1,16 +1,12 @@
 package com.playtika.second.HomeWork2;
 
-import org.hamcrest.Matcher;
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.TreeSet;
 
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 public class TextTest {
     Text text = new Text("Я считываю текст в строку % *.");
@@ -21,26 +17,21 @@ public class TextTest {
         new Text(null);
     }
 
-    @Test//(expected = IllegalArgumentException.class)
-    public void punctuationCouldNotBeProcessed() {
-        new Text(" ,....!").getTopWords(5);
-        assertThat(new ArrayList<String>(),is(new Text(" ,....!").getTopWords(5)));
+    @Test
+    public void punctuationProcessedLikeEmptyCollection() {
+        //new Text(" ,....!").getTopWords(5);
+        assertThat((new Text(" ,....!").getTopWords(5)),is(emptyCollectionOf(String.class)));
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void symbolsCouldNotBeProcessed() {
-        new Text("&^(()^&%*^^^*(*()@#)").getTopWords(5);
-        //assertThat(new ArrayList<String>(),is(new Text("&^(()^&%*^^^*(*()@#)").getTopWords(5)));
+    @Test
+    public void symbolsProcessedLikeEmptyCollection() {
+        //new Text("&^(()^&%*^^^*(*()@#)").getTopWords(5);
+        assertThat((new Text("&^(()^&%*^^^*(*()@#)").getTopWords(5)),is(emptyCollectionOf(String.class)));
     }
 
-    @Test//(expected = IllegalArgumentException.class)
-    public void invisibleSymbolsCouldNotBeProcessed() {new Text("\\s\\n\\t\\f\\r").getTopWords(5);
-        //assertThat(new Text("\\s\\n\\t\\f\\r").getTopWords(5), is(emptyCollectionOf(String.class)));
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void emptyTextCouldNotBeProcessed() {
-        new Text("");
+    @Test
+    public void emptyTextProcessedLikeEmptyCollection() {
+        assertThat(new Text("").getTopWords(5),is(empty()));
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -61,9 +52,8 @@ public class TextTest {
         testedText.add("считываю");
         testedText.add("текст");
         testedText.add("я");
-        assertEquals(testedText, text.getTopWords(5));
-
-
+//        assertEquals(testedText, text.getTopWords(5));
+        assertThat(text.getTopWords(5), is(testedText));
     }
 
     @Test
@@ -74,18 +64,20 @@ public class TextTest {
         testedTextApperCase.add("integer");
         testedTextApperCase.add("string");
 //        assertEquals(testedTextApperCase, textApperCase.getTopWords(3));
-        assertThat(testedTextApperCase,is(textApperCase.getTopWords(3)));
+        assertThat(textApperCase.getTopWords(3),is(testedTextApperCase));
     }
 
     @Test
     public void getTopWordsReturnedCorrectResultFromTextWithDublicates() throws Exception {
-        ArrayList<String> testedText = new ArrayList<>();
-        testedText.add("в");
-        testedText.add("строку");
-        testedText.add("считываю");
-        testedText.add("текст");
-        testedText.add("я");
-        assertEquals(testedText, textWitDublicates.getTopWords(5));
+//        ArrayList<String> testedText = new ArrayList<>();
+//        testedText.add("в");
+//        testedText.add("строку");
+//        testedText.add("считываю");
+//        testedText.add("текст");
+//        testedText.add("я");
+//        assertEquals(testedText, textWitDublicates.getTopWords(5));
+        assertThat(new Text("Я считываю текст в строку, Я считываю текст").getTopWords(5)
+                ,hasItems("в","строку","считываю","текст","я"));
     }
 
     @Test
@@ -96,15 +88,19 @@ public class TextTest {
         testWordFrequencies.put("строку", 1);
         testWordFrequencies.put("считываю", 2);
         testWordFrequencies.put("текст", 2);
-        assertEquals(testWordFrequencies, textWitDublicates.getWordsFrequencies());
+        //assertEquals(testWordFrequencies, textWitDublicates.getWordsFrequencies());
+        assertThat(textWitDublicates.getWordsFrequencies(),is(testWordFrequencies) );
     }
 
     @Test
     public void getLengthInCharsReturnTotalEmountOfChars() {
-        assertEquals(21, text.getLengthInChars());
+        //assertEquals(21, text.getLengthInChars());
+        assertThat(text.getLengthInChars(),is(21));
     }
-
-
+    @Test
+    public void getLengthForEmptyTextEqualZero(){
+        assertThat(new Text("").getLengthInChars(),equalTo(0));
+    }
 }
 
 

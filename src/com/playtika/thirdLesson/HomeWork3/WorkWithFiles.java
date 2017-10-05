@@ -1,14 +1,6 @@
 package com.playtika.thirdLesson.HomeWork3;
 
-import com.playtika.second.HomeWork2.Text;
-
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.attribute.BasicFileAttributes;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class WorkWithFiles {
@@ -20,7 +12,8 @@ public class WorkWithFiles {
 
 
 
-        new FileAndTextReader(directory).textReadResultAndFilesData();
+        new FileAndTextReader(directory).filesFromDirectoryData();
+        System.out.println(new FileAndTextReader(directory).agreateadGetWordsFrequenciesForDirectoriesFiles());
 
         new FilesCopyClass(fileSecond, fileCopySecond).fileCopyFromSourseToDestination();
 

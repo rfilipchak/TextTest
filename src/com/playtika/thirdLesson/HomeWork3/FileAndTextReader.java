@@ -7,29 +7,38 @@ import java.nio.file.Files;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.Map;
 
 public class FileAndTextReader {
     private String dyrectoryName;
+
 
 
     public FileAndTextReader(String dyrectoryName) {
         this.dyrectoryName = dyrectoryName;
     }
 
-    public void textReadResultAndFilesData() throws IOException {
+    public void filesFromDirectoryData() throws IOException {
         File myFolder = new File(dyrectoryName);
         File[] files = myFolder.listFiles();
-
         for (int i = 0; i < files.length; i++) {
             File fileData = new File(files[i].toString());
-
-            System.out.println(new Text(read(files[i].toString())).getWordsFrequencies());
             System.out.printf("File path: %s; File size: %d; File creation date: %s%n", fileData.getPath(), fileData.length(), getCreationDateTime(fileData));
         }
-
+    }
+    public Map<String, Integer> agreateadGetWordsFrequenciesForDirectoriesFiles() throws IOException{
+        String allFileToString = null;
+        File myFolder = new File(dyrectoryName);
+        File[] files = myFolder.listFiles();
+        for (int i = 0; i < files.length; i++) {
+            File fileData = new File(files[i].toString());
+            allFileToString += readFileToString(files[i].toString());
+        }
+        return new Text(allFileToString).getWordsFrequencies();
     }
 
-    private String read(String fileName) throws FileNotFoundException {
+    private String readFileToString(String fileName) throws FileNotFoundException {
         if (fileName == null) {
             throw new NullPointerException("File sourse name can't be NULL");
         }

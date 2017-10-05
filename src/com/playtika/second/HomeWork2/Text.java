@@ -1,6 +1,8 @@
 package com.playtika.second.HomeWork2;
 
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class Text {
@@ -10,9 +12,10 @@ public class Text {
 
     public Text(String text) {
 
-        if (text.equals("")) {
-            throw new IllegalArgumentException("Text can't be empty");
-        } else if (text.equals(null)) {
+//        if (text.equals("")) {
+//            throw new IllegalArgumentException("Text can't be empty");
+//        } else
+        if (text.equals(null)) {
             throw new NullPointerException(" Text can't be NULL");
         } else {
             this.text = text;
@@ -20,7 +23,7 @@ public class Text {
     }
 
     public List<String> getTopWords(int limit) {
-        if (limit < 0) {
+        if (limit <= 0) {
             throw new IllegalArgumentException(" Incorrect word counter <= 0");
         }
         Set<String> uniqueWords = new TreeSet<String>();
@@ -35,6 +38,9 @@ public class Text {
 
     public Map<String, Integer> getWordsFrequencies() {
         HashMap<String, Integer> wordsFrequency = new HashMap<>();
+        if (wordsCollection().size() == 0) {
+            throw new IllegalArgumentException("Can't count getWordsFrequencies() for ampty collection");
+        }
         List<String> topWords = getTopWords(wordsCollection().size());
 
         for (String word : topWords) {
@@ -58,19 +64,15 @@ public class Text {
     }
 
     private List<String> wordsCollection() {
-        List<String> words = Arrays.asList(text.toLowerCase().trim().split("[^a-zA-Z0-9а-яА-Я]+"));//[\s,.!?\t\n]+
-        for (String word : words) {
-            if (word.equals("")) {
-                throw new IllegalArgumentException(" Text can't be punctuation or symbols");
-            }
-        }
-        if (words.isEmpty()) {
-            throw new IllegalArgumentException(" Text can't be punctuation or symbols");
+        Pattern pattern = Pattern.compile("([a-zA-Z0-9а-яА-Я]+)");
+        Matcher matcher = pattern.matcher(text.toLowerCase());
+        //List<String> words = Arrays.asList(text.toLowerCase().trim().split("[^a-zA-Z0-9а-яА-Я]+"));//[\s,.!?\t\n]+
 
-        } else {
-            return words;
+        List<String> words = new ArrayList<>();
+        while (matcher.find()) {
+            words.add(matcher.group());
         }
-
+        return words;
     }
 
 
