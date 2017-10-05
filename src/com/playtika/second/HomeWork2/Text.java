@@ -9,12 +9,8 @@ public class Text {
 
     private final String text;
 
-
     public Text(String text) {
 
-//        if (text.equals("")) {
-//            throw new IllegalArgumentException("Text can't be empty");
-//        } else
         if (text.equals(null)) {
             throw new NullPointerException(" Text can't be NULL");
         } else {
@@ -37,7 +33,7 @@ public class Text {
     }
 
     public Map<String, Integer> getWordsFrequencies() {
-        HashMap<String, Integer> wordsFrequency = new HashMap<>();
+        Map<String, Integer> wordsFrequency = new HashMap<>();
         if (wordsCollection().size() == 0) {
             throw new IllegalArgumentException("Can't count getWordsFrequencies() for ampty collection");
         }

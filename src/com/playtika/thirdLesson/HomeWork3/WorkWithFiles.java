@@ -10,14 +10,9 @@ public class WorkWithFiles {
         String fileCopySecond = "D:\\JavaCourses\\FilesForTests\\fileCopySecond.txt";
         String directory = "D:\\JavaCourses\\FilesForTests\\";
 
-
-
         new FileAndTextReader(directory).filesFromDirectoryData();
         System.out.println(new FileAndTextReader(directory).agreateadGetWordsFrequenciesForDirectoriesFiles());
-
         new FilesCopyClass(fileSecond, fileCopySecond).fileCopyFromSourseToDestination();
-
-
 
     }
 

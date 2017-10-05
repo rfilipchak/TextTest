@@ -7,13 +7,10 @@ import java.nio.file.Files;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.ArrayList;
 import java.util.Map;
 
 public class FileAndTextReader {
-    private String dyrectoryName;
-
-
+    private final String dyrectoryName;
 
     public FileAndTextReader(String dyrectoryName) {
         this.dyrectoryName = dyrectoryName;
