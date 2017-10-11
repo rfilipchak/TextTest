@@ -25,8 +25,7 @@ public class Text {
         if (limit <= 0) {
             throw new IllegalArgumentException(" Incorrect word counter <= 0");
         }
-        Set<String> uniqueWords = new TreeSet<>(wordsCollection());
-        return uniqueWords.stream().limit(limit).collect(toList());
+        return wordsCollection().stream().distinct().sorted().limit(limit).collect(toList());
     }
 
     public Map<String, Long> getWordsFrequencies() {
