@@ -35,7 +35,7 @@ public class ActionWithPersonList {
                 .count();
     }
 
-    public Map<Integer, Long> getSortedMaxAgePerson() {
+    public Map<Integer, Long> countedAgeOfPerson() {
         return personArrayList.stream()
                 .collect(Collectors.groupingBy(Person::getAge,counting()));
     }
