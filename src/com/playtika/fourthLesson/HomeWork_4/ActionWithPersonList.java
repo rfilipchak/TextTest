@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.*;
 
@@ -34,11 +35,9 @@ public class ActionWithPersonList {
                 .count();
     }
 
-    public Map<String, Integer> getSortedMaxAgePerson() {
+    public Map<Integer, Long> getSortedMaxAgePerson() {
         return personArrayList.stream()
-                .collect(toMap(Person::getName,
-                        Person::getAge,
-                        Integer::max));
+                .collect(Collectors.groupingBy(Person::getAge,counting()));
     }
 
     public String cityMaxPersonAmount() {
